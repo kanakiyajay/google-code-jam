@@ -41,7 +41,8 @@ exit_to_entrance = "WRRWLWLWWLWWLWWRWWRWWL"
 @all_directions = ["s","w","n","e"]
 
 #Structure of blocks = [ ["ynny","",""] , [ ] , [ ] ]
-@blocks = [[""]]
+@blocks = [["s"]]
+@turns = []
 
 @cr = 0
 @cc = 0
@@ -65,6 +66,7 @@ end
 
 def generate_block
     direction = @all_directions[@cd]
+    @turns.push(direction)
     case direction
         when "n"
             @blocks.insert(@cr,["n"])
@@ -84,12 +86,13 @@ end
 entrance_to_exit.split('').each do |direc|
     case direc
         when "L"
-            clockwise(true)
+            clockwise(false)
         when "W"
             generate_block()
         else
-            clockwise(false)
+            clockwise(true)
     end
 end
 
+puts @turns.join('')
 puts @blocks.join('')
